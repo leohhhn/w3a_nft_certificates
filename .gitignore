@@ -5,6 +5,8 @@ coverage
 coverage.json
 typechain
 typechain-types
+metadata/*
+!metadata/metadata_0.example.json
 
 # Hardhat files
 cache
