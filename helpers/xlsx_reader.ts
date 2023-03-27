@@ -1,6 +1,17 @@
 import * as xlsx from 'xlsx';
 
-import {Candidate} from './helpers';
+import {Attendance, Candidate, Track} from './helpers';
+
+function generateArtpieceString(a: Attendance, t: Track) {
+    let s: string;
+    if (t !== Track.MKT) {
+        s = t.toLowerCase().split(' ').join('_');
+    } else {
+        s = t.toLowerCase().split(' ').join('');
+    }
+    s = s.concat('_').concat(a.toLowerCase()).concat('.png')
+    return s;
+}
 
 function getCandidateList() {
 // Load the Excel file
@@ -17,6 +28,7 @@ function getCandidateList() {
     let candidateList: Candidate[] = [];
 
     for (let i = 0; i < stringCells.length; i++) {
+        // @ts-ignore
         candidateList[i] = {
             // @ts-ignore
             address: stringCells[i].eth_addr,
@@ -24,10 +36,16 @@ function getCandidateList() {
             track: stringCells[i].Track,
             // @ts-ignore
             attendance: stringCells[i].Type === 'On-site' ? 'On_site' : 'Online',
+            // @ts-ignore
+            art: generateArtpieceString(stringCells[i].Type, stringCells[i].Track),
+            // @ts-ignore
+            role: stringCells[i].Role
         }
     }
+
 
     return candidateList;
 }
 
-export default getCandidateList;
+
+export {getCandidateList, generateArtpieceString};
