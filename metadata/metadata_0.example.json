@@ -1,6 +1,7 @@
 {
-  "name": "Web3 Academy 2023 Certificate 0",
-  "description": "Proof that the owner of the NFT has attended the Web3 Academy Generation 2023 in Belgrade, Serbia.",
+  "name": "Web3 Academy 2023 Certificate #0",
+  "description": "Proof that the owner of this NFT has successfully attended the Web3 Academy by XXX XXX XXX 2023 in Belgrade, Serbia.",
+  "image": "ipfs://QmXsHdYZsX...eW8yT/art/software_development_on_site.png",
   "attributes": [
     {
       "trait_type": "Track",
@@ -9,7 +10,10 @@
     {
       "trait_type": "Attendance",
       "value": "On_site"
+    },
+    {
+      "trait_type": "Role",
+      "value": "Organizer"
     }
-  ],
-  "image": "ipfs://QmXsHdYZsX...eW8yT/art/artpiece_0.png"
+  ]
 }

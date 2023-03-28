@@ -7,7 +7,10 @@ typechain
 typechain-types
 metadata/*
 !metadata/metadata_0.example.json
+logs
 
+poat.xlsx
+eth_addr.xlsx
 # Hardhat files
 cache
 artifacts

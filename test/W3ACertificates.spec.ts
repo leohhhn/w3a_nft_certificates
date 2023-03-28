@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import {ethers} from 'hardhat';
 import {SignerWithAddress} from '@nomiclabs/hardhat-ethers/signers';
-
 import {W3ACertificates} from '../typechain-types';
 import {baseURI, collectionName, collectionSymbol} from '../helpers/helpers';
 
@@ -21,13 +20,25 @@ describe('W3A Certificate Tests', function () {
         expect(await sc.baseURI()).to.be.eq(baseURI);
     });
 
-    it('should have correct URI', async () => {
-        let tokenId = 0;
-        await sc.mint(admin.address, tokenId);
+    it('should change baseURI correctly', async () => {
+        let currentBaseURI = await sc.baseURI();
+        let newBaseURI = 'ipfs://newbaseUri/';
 
-        let uri = `${baseURI}metadata/metadata_${tokenId}.json`;
-        console.log('URI: ', uri)
-        expect(await sc.tokenURI(tokenId))
-            .to.be.eq(uri);
+        await sc.setBaseURI(newBaseURI);
+        expect(currentBaseURI !== newBaseURI).to.be.true;
+        expect(await sc.baseURI()).to.be.eq(newBaseURI);
+
+
+    });
+
+    it('should return correct token metadata URI', async () => {
+        for (let i = 0; i < 5; i++) {
+            let tokenId = i;
+            await sc.mint(admin.address, tokenId);
+            let uri = `${baseURI}metadata/metadata_${tokenId}.json`;
+
+            expect(await sc.tokenURI(tokenId))
+                .to.be.eq(uri);
+        }
     });
 });

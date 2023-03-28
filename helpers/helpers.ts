@@ -7,7 +7,9 @@ interface Candidate {
     // software_development_on_site.png
     // software_development_online.png
     // marketing&growth_online.png
-    role: string
+    // lecturer.png
+    // organizer.png
+    role: Role
 }
 
 enum Attendance {
@@ -23,20 +25,27 @@ enum Track {
 }
 
 enum Role {
-    Candidate='Candidate',
+    Candidate = 'Candidate',
     Lecturer = 'Lecturer',
     Organizer = 'Organizer'
 }
 
+const exampleBaseCID = 'QmXWodfUX1Rw6NcESmuMbDwSNspoE9eBTpbj89Rtd5Rugc' // example base folder cid
+const baseURI = `ipfs://${exampleBaseCID}/`;
+const collectionName = 'W3A 2023 Certificates';
+const collectionSymbol = 'W3A23C';
+const w3aGoerli = '0xdfbB6F40d48f1510E86230C4Ac67d536277C72d8';
+const w3aMumbai = '0xDD6F3160dA3aB0F110d25465417BACFF457099Ee';
+
 export {
+    Role,
     Track,
+    baseURI,
+    w3aGoerli,
+    w3aMumbai,
     Candidate,
-    Attendance
+    Attendance,
+    exampleBaseCID,
+    collectionName,
+    collectionSymbol,
 }
-
-export const baseCID = 'QmXWodfUX1Rw6NcESmuMbDwSNspoE9eBTpbj89Rtd5Rugc' // example base folder cid
-export const baseURI = `ipfs://${baseCID}/`;
-export const collectionName = 'W3A 2023 Certificates';
-export const collectionSymbol = 'W3A23C';
-
-export const w3acSCGoerli = '';

@@ -8,6 +8,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 contract W3ACertificates is ERC721, Ownable {
     using Strings for uint256;
 
+    event BaseURIChanged(string _newBaseURI);
+
     string public baseURI;
 
     constructor(string memory __baseURI, string memory _name, string memory _symbol) ERC721(_name, _symbol){
@@ -18,18 +20,19 @@ contract W3ACertificates is ERC721, Ownable {
         _safeMint(to, tokenId);
     }
 
-    /// inheritdoc ERC721
     function _baseURI() internal view override returns (string memory) {
         return baseURI;
     }
 
-    /// inheritdoc ERC721
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        require(_exists(tokenId), "ERC721: URI query for nonexistent token");
 
         string memory tmp = _baseURI();
         return bytes(tmp).length > 0 ? string(abi.encodePacked(tmp, "metadata/metadata_", tokenId.toString(), ".json")) : "";
     }
 
-
+    function setBaseURI(string calldata _newBaseURI) external onlyOwner {
+        baseURI = _newBaseURI;
+        emit BaseURIChanged(_newBaseURI);
+    }
 }
