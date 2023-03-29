@@ -20,8 +20,7 @@ async function main() {
     for (let i = 0; i < candidates.length; i++) {
         const candidate: SignerWithAddress = await ethers.getSigner(candidates[i].address);
         console.log(`Minting ${candidates[i].role.toLowerCase()} NFT #${i} to ${await candidate.getAddress()}`);
-        const tx = await w3aCertificates.mint(await candidate.getAddress(), i);
-        const r = await tx.wait();
+        await w3aCertificates.mint(await candidate.getAddress(), i);
     }
 
     let balanceAfter = await minter.getBalance();

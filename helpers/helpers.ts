@@ -14,14 +14,16 @@ interface Candidate {
 
 enum Attendance {
     On_site = 'On_site',
-    Online = 'Online'
+    Online = 'Online',
+    None = ''
 }
 
 enum Track {
     SD = 'Software Development',
     PM = 'Product Management',
     PD = 'Product Design',
-    MKT = 'Marketing & Growth'
+    MKT = 'Marketing & Growth',
+    None = ''
 }
 
 enum Role {
@@ -32,7 +34,7 @@ enum Role {
 
 const exampleBaseCID = 'QmXWodfUX1Rw6NcESmuMbDwSNspoE9eBTpbj89Rtd5Rugc' // example base folder cid
 const baseURI = `ipfs://${exampleBaseCID}/`;
-const collectionName = 'W3A 2023 Certificates';
+const collectionName = 'Web3 Academy 2023 Certificates';
 const collectionSymbol = 'W3A23C';
 const w3aGoerli = '0xdfbB6F40d48f1510E86230C4Ac67d536277C72d8';
 const w3aMumbai = '0xDD6F3160dA3aB0F110d25465417BACFF457099Ee';

@@ -1,7 +1,9 @@
 {
   "scripts": {
     "compile": "npx hardhat compile",
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "generate": "npx hardhat run scripts/generator.ts",
+    "mint": "npx hardhat run scripts/minter.ts"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",

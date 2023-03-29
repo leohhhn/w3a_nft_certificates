@@ -7,27 +7,22 @@ import fs from 'fs';
 function generateArtpieceString(a: string, t: Track, role: Role) {
     let s: string = '';
 
-    if (role === Role.Candidate) {
+    if (role === Role.Lecturer) {
+        s = s.concat('lecturer')
+    } else if (role === Role.Organizer) {
+        s = s.concat('organizer')
+    } else if (role === Role.Candidate) {
         if (t !== Track.MKT) {
             s = t.toLowerCase().split(' ').join('_');
         } else {
             s = t.toLowerCase().split(' ').join('');
         }
         s = s.concat('_');
-
         if (a === 'On-site') {
             s = s.concat(Attendance.On_site.toLowerCase())
         } else if (a === 'Online') {
             s = s.concat(Attendance.Online.toLowerCase())
         }
-    }
-
-    if (role === Role.Lecturer) {
-        // lecturer
-        s = s.concat('lecturer');
-    } else if (role === Role.Organizer) {
-        // organizer
-        s = s.concat('organizer');
     }
 
     s = s.concat('.png')
@@ -45,12 +40,6 @@ function getCandidateList() {
     for (let i = 0; i < rows.length; i++) {
 
         // @ts-ignore
-        const address = rows[i].eth_addr;
-        // @ts-ignore
-        const track = rows[i].Track;
-        // @ts-ignore
-        const attendance = rows[i].Type === 'On-site' ? Attendance.On_site : Attendance.Online;
-        // @ts-ignore
         const role: Role = (() => {
             // @ts-ignore
             switch (rows[i].Role) {
@@ -64,6 +53,18 @@ function getCandidateList() {
                     break;
             }
         })();
+
+        // @ts-ignore
+        const address = rows[i].eth_addr;
+        // @ts-ignore
+        const track = role === Role.Candidate ? rows[i].Track : Track.None;
+
+        // copy-paste lecturers & organizors: eth addr | track: '' | type: '' | Role
+
+        let attendance: Attendance;
+        // @ts-ignore
+        attendance = rows[i].Type === 'On-site' ? Attendance.On_site : Attendance.Online;
+
 
         // @ts-ignore
         let art = generateArtpieceString(rows[i].Type, rows[i].Track, role)
@@ -81,7 +82,8 @@ function getCandidateList() {
             attendance: attendance,
             art: art,
             role: role
-        })
+        });
+
         num++;
     }
     console.log(`Generating ${num + 1} metadata file${num + 1 === 1 ? '' : 's'}.`)
