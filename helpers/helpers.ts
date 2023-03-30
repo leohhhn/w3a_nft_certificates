@@ -3,10 +3,11 @@ interface Candidate {
     track: Track,
     attendance: Attendance
     art: string,
-    // possible combinations of art names
+    // i.e.
     // software_development_on_site.png
     // software_development_online.png
     // marketing&growth_online.png
+    // other track&attendance combinations
     // lecturer.png
     // organizer.png
     role: Role
@@ -39,12 +40,15 @@ const collectionSymbol = 'W3A23C';
 const w3aGoerli = '0xdfbB6F40d48f1510E86230C4Ac67d536277C72d8';
 const w3aMumbai = '0xDD6F3160dA3aB0F110d25465417BACFF457099Ee';
 
+const writeBool = true;
+
 export {
     Role,
     Track,
     baseURI,
     w3aGoerli,
     w3aMumbai,
+    writeBool,
     Candidate,
     Attendance,
     exampleBaseCID,

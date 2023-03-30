@@ -1,9 +1,11 @@
 import * as fs from 'fs';
-import {baseURI, Candidate, Role, Track} from '../helpers/helpers';
+import {baseURI, Candidate, Role, Track, writeBool} from '../helpers/helpers';
 import {getCandidateList} from '../helpers/xlsx_reader';
 import {candidateDescription, lecturerDescription, organizerDescription} from '../helpers/descriptions';
 
 function generateMetadata(candidates: Candidate[]) {
+
+    let num = -1;
 
     for (let i = 0; i < candidates.length; i++) {
         const metadata = {
@@ -29,8 +31,11 @@ function generateMetadata(candidates: Candidate[]) {
         if (candidates[i].role !== Role.Candidate) // remove track & attendance attributes
             metadata.attributes = metadata.attributes.splice(2, metadata.attributes.length);
 
-        fs.writeFileSync(`./metadata/metadata_${i}.json`, JSON.stringify(metadata));
+        writeBool ? fs.writeFileSync(`./metadata/metadata_${i}.json`, JSON.stringify(metadata)) : null;
+        num++;
     }
+
+    console.log(`Generating ${num + 1} metadata file${num + 1 === 1 ? '' : 's'}.`)
 }
 
 function fetchDescription(c: Candidate): string {

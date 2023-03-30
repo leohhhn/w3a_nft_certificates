@@ -30,13 +30,17 @@ function generateArtpieceString(a: string, t: Track, role: Role) {
 }
 
 function getCandidateList() {
-    const workbook = xlsx.readFile('./eth_addr.xlsx');
+
+    let flag = true;
+    const workbook = xlsx.readFile(`${flag ? './poat.xlsx' : './eth_addr.xlsx'}`);
     const worksheet = workbook.Sheets['W3A Adrese'];
     const rows = xlsx.utils.sheet_to_json(worksheet);
 
+    // clear logs file
+    fs.writeFileSync(`./logs/generator.txt`, '');
+
     let candidates: Candidate[] = [];
 
-    let num = 0;
     for (let i = 0; i < rows.length; i++) {
 
         // @ts-ignore
@@ -55,6 +59,11 @@ function getCandidateList() {
         })();
 
         // @ts-ignore
+        if (role === Role.Candidate && rows[i].Passed === 'No') {
+            continue;
+        }
+
+        // @ts-ignore
         const address = rows[i].eth_addr;
         // @ts-ignore
         const track = role === Role.Candidate ? rows[i].Track : Track.None;
@@ -65,14 +74,12 @@ function getCandidateList() {
         // @ts-ignore
         attendance = rows[i].Type === 'On-site' ? Attendance.On_site : Attendance.Online;
 
-
         // @ts-ignore
         let art = generateArtpieceString(rows[i].Type, rows[i].Track, role)
 
         if (!ethers.utils.isAddress(address)) {
             console.log('Found invalid address, writing it to generator log file.');
-            fs.writeFileSync(`./logs/generator.txt`, address);
-            num--;
+            fs.appendFileSync(`./logs/generator.txt`, address);
             continue;
         }
 
@@ -84,9 +91,7 @@ function getCandidateList() {
             role: role
         });
 
-        num++;
     }
-    console.log(`Generating ${num + 1} metadata file${num + 1 === 1 ? '' : 's'}.`)
     return candidates;
 }
 
