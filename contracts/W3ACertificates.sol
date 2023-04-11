@@ -17,7 +17,7 @@ contract W3ACertificates is ERC721, Ownable {
     }
 
     function mint(address to, uint256 tokenId) external onlyOwner {
-        _safeMint(to, tokenId);
+        _mint(to, tokenId);
     }
 
     function setBaseURI(string calldata _newBaseURI) external onlyOwner {

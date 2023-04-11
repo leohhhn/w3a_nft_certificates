@@ -1,5 +1,5 @@
-export const candidateDescription = `Proof that the owner of this NFT has successfully attended the Web3 Academy by XXX XXX XXX 2023 in Belgrade, Serbia.`
+export const candidateDescription = `The owner of this NFT has successfully attended the Web3 Academy 2023, an educative initiative organized by MVP Workshop, USAID, ICT Hub, Srbija Inovira, and Trapesys in Belgrade, Serbia. The Web3 Academy 2023 has four tracks to provide candidates with everything they need to get up to speed on Web3 and become more knowledgeable about the blockchain industry in the fields of Software Development, Product Management, Product Design, Marketing & Growth. This NFT proves the candidate went through 25+ hours of content spread over eight weeks from February to May 2023.`
 
-export const lecturerDescription = `Proof that the owner of this NFT has given awesome lectures at the Web3 Academy by XXX XXX XXX 2023 in Belgrade, Serbia.`
+export const lecturerDescription = `The owner of this NFT has given lectures at the Web3 Academy 2023, an educative initiative organized by MVP Workshop, USAID, ICT Hub, Srbija Inovira and Trapesys in Belgrade, Serbia`
 
-export const organizerDescription = `Proof that the owner of this NFT was one of the heroes that helped organize Web3 Academy by XXX XXX XXX 2023 in Belgrade, Serbia.`
+export const organizerDescription = `The owner of this NFT was one of the heroes who organized the Web3 Academy 2023, an educative initiative created by MVP Workshop, USAID, ICT Hub, Srbija Inovira and Trapesys in Belgrade, Serbia.`

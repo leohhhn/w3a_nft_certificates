@@ -3,7 +3,10 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "generate": "npx hardhat run scripts/generator.ts",
-    "mint": "npx hardhat run scripts/minter.ts"
+    "mint": "npx hardhat run scripts/minter.ts",
+    "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy_mumbai": "npx hardhat run scripts/deploy.ts --network mumbai",
+    "deploy_polygon": "npx hardhat run scripts/deploy.ts --network polygon"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",

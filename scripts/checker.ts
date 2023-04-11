@@ -2,7 +2,6 @@ import {ethers} from 'hardhat';
 import {W3ACertificates} from '../typechain-types';
 import {Candidate} from '../helpers/helpers';
 import {getCandidateList} from '../helpers/xlsx_reader';
-import {SignerWithAddress} from '@nomiclabs/hardhat-ethers/signers';
 
 async function main() {
     const [minter] = await ethers.getSigners();
@@ -15,18 +14,22 @@ async function main() {
     console.log('W3A Certificates instance: ', w3aCertificates.address)
 
     let candidates: Candidate[] = getCandidateList();
-    let balanceBefore = await minter.getBalance();
 
-    for (let i = 0; i < candidates.length; i++) {
-        const candidate: SignerWithAddress = await ethers.getSigner(candidates[i].address);
-        console.log(`Minting ${candidates[i].role.toLowerCase()} NFT #${i} to ${await candidate.getAddress()}`);
-        await w3aCertificates.mint(await candidate.getAddress(), i);
+    let multipleMints: Candidate[] = [];
 
+    for (let i = 0; i < 22; i++) {
+        let balanceOf = await w3aCertificates.balanceOf(candidates[i].address);
+        console.log(`address ${i}, balance: ${balanceOf}`);
+        if (balanceOf.gt('1'))
+            multipleMints.push(candidates[i]);
     }
 
-    let balanceAfter = await minter.getBalance();
-    console.log('Total mint cost: ', ethers.utils.formatEther(balanceBefore.sub(balanceAfter)));
+    for (let i = 0; i < multipleMints.length; i += 2)
+        console.log(multipleMints[i].address)
+
+    console.log('Multiple mints #: ', multipleMints.length / 2)
 }
+
 
 main().catch((error) => {
     console.error(error);

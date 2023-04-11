@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import {baseURI, Candidate, Role, Track, writeBool} from '../helpers/helpers';
+import {artBaseURI, Candidate, Role, Track, writeBool} from '../helpers/helpers';
 import {getCandidateList} from '../helpers/xlsx_reader';
 import {candidateDescription, lecturerDescription, organizerDescription} from '../helpers/descriptions';
 
@@ -9,9 +9,9 @@ function generateMetadata(candidates: Candidate[]) {
 
     for (let i = 0; i < candidates.length; i++) {
         const metadata = {
-            name: `Web3 Academy 2023 Certificate #${i}`,
+            name: `Certificate #${i}`,
             description: fetchDescription(candidates[i]),
-            image: `${baseURI}art/${candidates[i].art as string}`,
+            image: `${artBaseURI}art/${candidates[i].art as string}`,
             attributes: [
                 {
                     trait_type: 'Track',

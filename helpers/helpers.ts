@@ -33,25 +33,32 @@ enum Role {
     Organizer = 'Organizer'
 }
 
-const exampleBaseCID = 'QmXWodfUX1Rw6NcESmuMbDwSNspoE9eBTpbj89Rtd5Rugc' // example base folder cid
-const baseURI = `ipfs://${exampleBaseCID}/`;
+const artFolderCID = 'QmT8UBHaBd7BJzEPJQjxSkgzmVV8DMu4c8nR5WyPg17H3f' // art base folder cid
+
+const artBaseURI = `ipfs://${artFolderCID}/`; // to be put in metadata files
+
+const metadataFolderCID = ''; // metadata base folder cid
+const metadataBaseURI = `ipfs://${metadataFolderCID}/`; // to be put as baseURI in ERC721
+
 const collectionName = 'Web3 Academy 2023 Certificates';
 const collectionSymbol = 'W3A23C';
-const w3aGoerli = '0xdfbB6F40d48f1510E86230C4Ac67d536277C72d8';
-const w3aMumbai = '0xDD6F3160dA3aB0F110d25465417BACFF457099Ee';
+let w3aGoerli = '0xdfbB6F40d48f1510E86230C4Ac67d536277C72d8';
+let w3aMumbai = '0xDD6F3160dA3aB0F110d25465417BACFF457099Ee';
 
 const writeBool = true;
 
 export {
     Role,
     Track,
-    baseURI,
     w3aGoerli,
     w3aMumbai,
     writeBool,
     Candidate,
+    artBaseURI,
     Attendance,
-    exampleBaseCID,
+    artFolderCID,
     collectionName,
+    metadataBaseURI,
     collectionSymbol,
+    metadataFolderCID,
 }

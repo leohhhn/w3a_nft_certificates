@@ -29,15 +29,18 @@ function generateArtpieceString(a: string, t: Track, role: Role) {
     return s;
 }
 
+
+
 function getCandidateList() {
 
-    let flag = true;
-    const workbook = xlsx.readFile(`${flag ? './poat.xlsx' : './eth_addr.xlsx'}`);
-    const worksheet = workbook.Sheets['W3A Adrese'];
+    let real = true;
+    const workbook = xlsx.readFile(`${real ? './poat.xlsx' : './eth_addr.xlsx'}`);
+    const worksheet = workbook.Sheets['testW3A'];
     const rows = xlsx.utils.sheet_to_json(worksheet);
 
     // clear logs file
     fs.writeFileSync(`./logs/generator.txt`, '');
+    let skipped= 0;
 
     let candidates: Candidate[] = [];
 
@@ -59,12 +62,14 @@ function getCandidateList() {
         })();
 
         // @ts-ignore
+        const address = rows[i].eth_addr;
+        // @ts-ignore
         if (role === Role.Candidate && rows[i].Passed === 'No') {
+            console.log("Skipping candidate: ", address);
+            skipped++;
             continue;
         }
 
-        // @ts-ignore
-        const address = rows[i].eth_addr;
         // @ts-ignore
         const track = role === Role.Candidate ? rows[i].Track : Track.None;
 
@@ -92,6 +97,7 @@ function getCandidateList() {
         });
 
     }
+    console.log("Skipped: ", skipped);
     return candidates;
 }
 

@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import {ethers} from 'hardhat';
 import {SignerWithAddress} from '@nomiclabs/hardhat-ethers/signers';
 import {W3ACertificates} from '../typechain-types';
-import {baseURI, collectionName, collectionSymbol} from '../helpers/helpers';
+import {artBaseURI, collectionName, collectionSymbol} from '../helpers/helpers';
 
 describe('W3A Certificate Tests', function () {
     let admin: SignerWithAddress, user: SignerWithAddress;
@@ -11,13 +11,13 @@ describe('W3A Certificate Tests', function () {
     beforeEach(async () => {
         [admin, user] = await ethers.getSigners();
         let certificateFactory = await ethers.getContractFactory('W3ACertificates');
-        sc = await certificateFactory.deploy(baseURI, collectionName, collectionSymbol);
+        sc = await certificateFactory.deploy(artBaseURI, collectionName, collectionSymbol);
     })
 
     it('should deploy correctly', async () => {
         expect(await sc.name()).to.be.eq(collectionName);
         expect(await sc.symbol()).to.be.eq(collectionSymbol);
-        expect(await sc.baseURI()).to.be.eq(baseURI);
+        expect(await sc.baseURI()).to.be.eq(artBaseURI);
     });
 
     it('should mint token correctly', async () => {
@@ -36,11 +36,17 @@ describe('W3A Certificate Tests', function () {
         for (let i = 0; i < 5; i++) {
             let tokenId = i;
             await sc.mint(admin.address, tokenId);
-            let uri = `${baseURI}metadata/metadata_${tokenId}.json`;
+            let uri = `${artBaseURI}metadata/metadata_${tokenId}.json`;
 
             expect(await sc.tokenURI(tokenId))
                 .to.be.eq(uri);
         }
+    });
+
+    it('should not mint 2 same tokenIDs', async () => {
+        let tokenId = 0;
+        await sc.mint(admin.address, tokenId);
+        await expect(sc.mint(admin.address, tokenId)).to.be.revertedWith('ERC721: token already minted');
     });
 
     it('should change baseURI correctly', async () => {
