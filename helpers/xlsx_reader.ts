@@ -29,8 +29,6 @@ function generateArtpieceString(a: string, t: Track, role: Role) {
     return s;
 }
 
-
-
 function getCandidateList() {
 
     let real = true;
@@ -40,7 +38,7 @@ function getCandidateList() {
 
     // clear logs file
     fs.writeFileSync(`./logs/generator.txt`, '');
-    let skipped= 0;
+    let skipped = 0;
 
     let candidates: Candidate[] = [];
 
@@ -65,7 +63,6 @@ function getCandidateList() {
         const address = rows[i].eth_addr;
         // @ts-ignore
         if (role === Role.Candidate && rows[i].Passed === 'No') {
-            console.log("Skipping candidate: ", address);
             skipped++;
             continue;
         }
@@ -97,7 +94,7 @@ function getCandidateList() {
         });
 
     }
-    console.log("Skipped: ", skipped);
+    console.log('Skipped: ', skipped);
     return candidates;
 }
 

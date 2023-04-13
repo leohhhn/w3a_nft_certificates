@@ -1,6 +1,6 @@
 import {ethers} from 'hardhat';
 import {W3ACertificates} from '../typechain-types';
-import {Candidate} from '../helpers/helpers';
+import {Candidate, w3aCertificatesPolygon} from '../helpers/helpers';
 import {getCandidateList} from '../helpers/xlsx_reader';
 import {SignerWithAddress} from '@nomiclabs/hardhat-ethers/signers';
 
@@ -10,18 +10,17 @@ async function main() {
     console.log('Acting as: ' + minter.address);
 
     let W3ACertificates = await ethers.getContractFactory('W3ACertificates');
-    let w3aCertificates: W3ACertificates = await W3ACertificates.attach('0x2a5E40fE46B4b7e90F2FEfad78E7C979D72D7E98'); // connect to instance
+    let w3aCertificates: W3ACertificates = await W3ACertificates.attach(w3aCertificatesPolygon); // connect to instance
 
     console.log('W3A Certificates instance: ', w3aCertificates.address)
 
     let candidates: Candidate[] = getCandidateList();
-    let balanceBefore = await minter.getBalance();
+    let balanceBefore = await minter.getBalance()
 
     for (let i = 0; i < candidates.length; i++) {
         const candidate: SignerWithAddress = await ethers.getSigner(candidates[i].address);
         console.log(`Minting ${candidates[i].role.toLowerCase()} NFT #${i} to ${await candidate.getAddress()}`);
         await w3aCertificates.mint(await candidate.getAddress(), i);
-
     }
 
     let balanceAfter = await minter.getBalance();

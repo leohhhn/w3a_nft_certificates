@@ -23,7 +23,7 @@ const config: HardhatUserConfig = {
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
     polygon: {
-      url: process.env.ALCHEMY_MUMBAI_URL,
+      url: process.env.ALCHEMY_POLYGONPOS_URL,
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
   },

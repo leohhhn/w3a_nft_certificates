@@ -1,7 +1,7 @@
 import {ethers} from 'hardhat';
 
 import {W3ACertificates} from '../typechain-types';
-import {collectionName, collectionSymbol, metadataBaseURI} from '../helpers/helpers';
+import {collectionName, collectionSymbol, metadataBaseURI0, metadataBaseURI1} from '../helpers/helpers';
 
 async function main() {
 
@@ -13,7 +13,9 @@ async function main() {
 
     let w3aCertificates: W3ACertificates;
     let certificateFactory = await ethers.getContractFactory('W3ACertificates');
-    w3aCertificates = await certificateFactory.deploy(metadataBaseURI, collectionName, collectionSymbol);
+    w3aCertificates = await certificateFactory.deploy(metadataBaseURI0, metadataBaseURI1, collectionName, collectionSymbol);
+
+    console.log(metadataBaseURI0,metadataBaseURI0,collectionName,collectionSymbol)
 
     await w3aCertificates.deployed();
 

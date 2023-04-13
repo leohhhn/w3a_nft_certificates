@@ -6,7 +6,6 @@ import {candidateDescription, lecturerDescription, organizerDescription} from '.
 function generateMetadata(candidates: Candidate[]) {
 
     let num = -1;
-
     for (let i = 0; i < candidates.length; i++) {
         const metadata = {
             name: `Certificate #${i}`,
